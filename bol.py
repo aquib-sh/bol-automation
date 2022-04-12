@@ -14,7 +14,21 @@ class BolManager:
                 }
  
     def __get_token(self, _id, token) -> str:
-        """Fetches access token from Bol API"""
+        """Fetches access token from Bol API
+
+        Parameters
+        ----------
+        _id:  str
+            API_ID of Bol API
+
+        token: str
+            API_SECRET of Bol API 
+
+        Returns
+        --------
+        access_token: str
+            A new access token to be used for accessing retailer API.
+        """
         cred = _id+":"+token
         cred_bytes = cred.encode("ascii")
         # encode the creds to base 64
@@ -29,21 +43,54 @@ class BolManager:
         
         return resp["access_token"]
     
-    def search_term(self, term) -> str:
-        """Fetches insights for a search term excluding the related terms."""
-        path = f"/retailer/insights/search-terms?search-term={term}&period=WEEK&number-of-periods=2&related-search-terms=false"
+    def search_term(self, term,  period=2) -> dict:
+        """Fetches insights for a search term excluding the related terms.
+
+        Parameters
+        ----------
+        term: str 
+            Search term that you want to get insights for
+        
+        period: int (DEFAULT=2)
+            Period back in terms of week which you want insights for.
+            suppose you want sights for current week and previous week,
+            so we will put period=2
+
+        Returns
+        -------
+        results: dict
+            fetched info on insights about the search term
+        """
+        path = f"/retailer/insights/search-terms?search-term={term}&period=WEEK&number-of-periods={period}&related-search-terms=false"
         req = requests.get(self.host+path, headers=self.__header)
-        results = req.content.decode()
+        results = eval(req.content.decode())
         return results
 
-    def search_term_wr(self, term) -> str:
-        """Fetches insights for a search term including the related terms."""
-        path = f"/retailer/insights/search-terms?search-term={term}&period=WEEK&number-of-periods=2&related-search-terms=true"
+    def search_term_wr(self, term, period=2) -> dict:
+        """Fetches insights for a search term including the related terms.
+        
+        Parameters
+        ----------
+        term: str 
+            Search term that you want to get insights for
+        
+        period: int (DEFAULT=2)
+            Period back in terms of week which you want insights for.
+            suppose you want sights for current week and previous week,
+            so we will put period=2
+
+        Returns
+        -------
+        results: dict
+            fetched info on insights about the search term
+        """
+        path = f"/retailer/insights/search-terms?search-term={term}&period=WEEK&number-of-periods={period}&related-search-terms=true"
         req = requests.get(self.host+path, headers=self.__header)
-        results = req.content.decode()
+        results = eval(req.content.decode())
         return results
         
     def get_orders(self) -> str:
+        """Fetch all the order details."""
         path = "https://api.bol.com/retailer/orders"
         req = requests.get(path, headers=self.__header)
         results = req.content.decode()
