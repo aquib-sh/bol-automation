@@ -12,3 +12,6 @@ INPUT_FILE = "input.csv"
 # Full paths
 TOKEN_PATH = os.path.join(DATA_DIR, TOKEN_FILE)
 INPUT_PATH = os.path.abspath(os.path.join(SCRIPT_FILE_DIR, INPUT_FILE))
+
+# WARNING: DO NOT CHANGE ANYTHING BELOW
+COLUMNS = ["Keyword", "Week_Start", "Week_End", "Year"]
