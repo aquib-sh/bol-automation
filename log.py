@@ -1,3 +1,8 @@
+import os
+
+import psutil
+
+
 class Logger:
     def __init__(self):
         self.colors = {
@@ -10,6 +15,7 @@ class Logger:
             "PINK": "\033[1;35m",
             "CYAN": "\033[1;36m",
         }
+        self.process = psutil.Process(os.getpid())
 
     def __log(self, color, tag, message):
         """Base message format for all logs."""
@@ -23,3 +29,8 @@ class Logger:
 
     def debug(self, message):
         self.__log("GREY", "[DEBUG]", message)
+
+    def memory_usage(self):
+        usage_in_bytes = self.process.memory_info().rss
+        usage_in_mb = usage_in_bytes / 1024 ** 2
+        self.__log("GREY", "[MEM_USAGE]", f"{usage_in_mb}MB")
