@@ -64,7 +64,7 @@ class BolManager:
         path = f"/retailer/insights/search-terms?search-term={term}&period=WEEK&number-of-periods={period}&related-search-terms=false"
         req = requests.get(self.host+path, headers=self.__header)
         results = eval(req.content.decode())
-        return results
+        return (req.status_code, results)
 
     def search_term_wr(self, term, period=2) -> dict:
         """Fetches insights for a search term including the related terms.
@@ -87,7 +87,7 @@ class BolManager:
         path = f"/retailer/insights/search-terms?search-term={term}&period=WEEK&number-of-periods={period}&related-search-terms=true"
         req = requests.get(self.host+path, headers=self.__header)
         results = eval(req.content.decode())
-        return results
+        return (req.status_code, results)
         
     def get_orders(self) -> str:
         """Fetch all the order details."""
