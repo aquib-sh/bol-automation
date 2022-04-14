@@ -41,7 +41,7 @@ class DatetimeOperator:
 
         return week_no
 
-    def week_date(self, week_no, year) -> datetime.datetime:
+    def date_of_the_week(self, week_no, year) -> datetime.datetime:
         """Calculates the date of that week_no in the year.
 
          Parameters
