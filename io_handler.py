@@ -12,12 +12,12 @@ class CSVReader:
 
     def readrow(self):
         """Yields each row of dataframe one by one."""
-        data_size = len(self.data[self.cols[0]])
+        data_size = len(self.data[self.columns[0]])
         for i in range(0, data_size):
             row = self.data.iloc[i]
             yield {
-                self.cols[0]: row[self.cols[0]],
-                self.cols[1]: row[self.cols[1]],
-                self.cols[2]: row[self.cols[2]],
-                self.cols[3]: row[self.cols[3]],
+                self.columns[0]: row[self.columns[0]],
+                self.columns[1]: row[self.columns[1]],
+                self.columns[2]: row[self.columns[2]],
+                self.columns[3]: row[self.columns[3]],
             }
