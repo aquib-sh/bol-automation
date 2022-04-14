@@ -1,11 +1,11 @@
 class BolDataProcessor:
-    def __init__(self, data: dict):
-        self.data = data
+    def __init__(self):
+        pass
 
     def set_data(self, data: dict):
         self.data = data
 
-    def get_related_search_terms(self) -> list:
+    def get_related_search_terms(self, data) -> list:
         """Returns a list of related seach terms from data."""
         related_terms = []
         related_search_term_data = data["searchTerms"]["relatedSearchTerms"]
@@ -13,7 +13,7 @@ class BolDataProcessor:
             related_terms.append(term["searchTerm"])
         return related_terms
 
-    def filter_data_by_end_week(self, end_week, end_year) -> dict:
+    def filter_data_by_end_week(self, data, end_week, end_year) -> dict:
         """Filters data to get only up till the end of specified week of that year.
 
         Parameters
@@ -36,8 +36,8 @@ class BolDataProcessor:
             "week": [],
             "year": [],
         }
-        term = search_results["searchTerms"]["searchTerm"]
-        for period in search_results["searchTerms"]["periods"]:
+        term = data["searchTerms"]["searchTerm"]
+        for period in data["searchTerms"]["periods"]:
             week = period["period"]["week"]
             year = period["period"]["year"]
 
