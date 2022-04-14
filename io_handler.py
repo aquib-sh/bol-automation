@@ -16,10 +16,8 @@ class CSVReader:
         for i in range(0, data_size):
             row = self.data.iloc[i]
             yield {
-                self.cols[0]: row[self.cols[0]], 
+                self.cols[0]: row[self.cols[0]],
                 self.cols[1]: row[self.cols[1]],
                 self.cols[2]: row[self.cols[2]],
-                self.cols[3]: row[self.cols[3]]
+                self.cols[3]: row[self.cols[3]],
             }
-
-           
